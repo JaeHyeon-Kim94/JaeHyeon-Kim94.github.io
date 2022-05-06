@@ -23,7 +23,7 @@ timezone: Asia/Seoul
 
 title: JaeHyeon # the main title
 
-tagline: 학습 및 정리용 블로그입니다. # it will display as the sub-title
+tagline: 학습 정리용 블로그 # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
