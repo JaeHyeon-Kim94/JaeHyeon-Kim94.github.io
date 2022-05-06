@@ -23,7 +23,7 @@ timezone: Asia/Seoul
 
 title: JaeHyeon # the main title
 
-tagline: A text-focused Jekyll theme # it will display as the sub-title
+tagline: 학습 및 정리용 블로그입니다. # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
@@ -40,8 +40,8 @@ twitter:
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: your_full_name
-  email: example@doamin.com # change to your email address
+  name: JaeHyeon-Kim
+  email: daxxx5428@naver.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
     - https://twitter.com/username # change to your twitter homepage

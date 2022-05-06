@@ -1,12 +1,13 @@
 ---
-categories: [etc]
+title: Jekyll, Chirpy doc
+date: 2022-05-06
+categories: [etc, Jekyll_Chirpy]
 tags: [chirpy] # TAG names should always be lowercase
 ---
 
 # **서문**
 
-> Jekyll, chirpy를 이용한 깃헙 블로그를 만들기 위해 수행한 작업을 기록하고  
-> chirpy, Jekyll 문서 일부를 번역한 글입니다. 잘못된 정보가 있을 수도 있습니다
+> Jekyll, chirpy를 이용한 깃헙 블로그를 만들기 위해 찾아본 chirpy, Jekyll 문서 일부를 번역한 글입니다. 잘못된 정보가 있을 수도 있습니다
 
 #### **Jekyll Predefined Variables**
 
