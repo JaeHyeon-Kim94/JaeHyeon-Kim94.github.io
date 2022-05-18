@@ -25,7 +25,13 @@ tags: [spring, springboot, annotation]
 
 - `@SpringBootApplication`
   <br>이 어노테이션은 다음의 3가지 기능을 가지고 있다.
-  첫째, `@EnableConfiguration` : 스프링부트의 auto-config 가능하게 한다.
+  첫째, `@EnableAutoConfiguration` : 스프링부트의 auto-config 가능하게 한다.
+
+  > This annotation tells Spring Boot to “guess” how you want to configure Spring, based on the jar dependencies that you have added. Since spring-boot-starter-web added Tomcat and Spring MVC, the auto-configuration assumes that you are developing a web application and sets up Spring accordingly.
+
+  > > EnableAutoConfiguration에 관한 [공식문서](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#getting-started.first-application.code.enable-auto-configuration)의 내용인데,
+  > > jar 의존성을 기반으로 스프링부트가 추측하여 적절하게 설정을 해준단다. 그 예로 spring-boot-starter-web 의존성이 추가된 것을 보고 web 개발에 적절한 tomcat과 spring mvc 설정을 해준다고 한다.
+
   둘째, `@ComponentScan` : application이 위치한 패키지로부터 @Component를 스캔하여 사용가능하도록 함.
   셋째, `@SpringBootConfiguration` : 추가적인 bean들,config 클래스들을 등록
 
