@@ -29,15 +29,14 @@ tags: []
 
 ### 03-1 검색 알고리즘
 
-***TODO***
+  ***TODO***
+  > 1. 선형 검색 : 무작위로 늘어놓은 데이터 집합에서 검색 수행.
+  > 2. 이진 검색 : 일정한 규칙으로 늘어놓은 데이터 집합에서 아주 빠른 검색 수행.
+  > 3. 해시법 : 추가, 삭제가 자주 일어나는 데이터 집합에서 아주 빠른 검색 수행.
+    <br>&nbsp;&nbsp; <span style="color:#2D3748; background-color:#fff5b1">- 체인법 : 같은 해시 값의 데이터를 선형 리스트로 연결하는 방법</span>
+    <br>&nbsp;&nbsp; <span style="color:#2D3748; background-color:#fff5b1">- 오픈 주소법 : 데이터를 위한 해시 값이 충돌할 때 재해시 하는 방법</span>
 
-> 1. 선형 검색 : 무작위로 늘어놓은 데이터 집합에서 검색 수행.
-> 2. 이진 검색 : 일정한 규칙으로 늘어놓은 데이터 집합에서 아주 빠른 검색 수행.
-> 3. 해시법 : 추가, 삭제가 자주 일어나는 데이터 집합에서 아주 빠른 검색 수행.
-<br>&nbsp;&nbsp; - 체인법 : 같은 해시 값의 데이터를 선형 리스트로 연결하는 방법
-<br>&nbsp;&nbsp; - 오픈 주소법 : 데이터를 위한 해시 값이 충돌할 때 재해시 하는 방법
-
-데이터의 집합에 대한 검색, 추가, 삭제 등의 작업에 소요되는 비용을 종합적으로 판단하여 알고리즘 선택해야 한다.
+  데이터의 집합에 대한 검색, 추가, 삭제 등의 작업에 소요되는 비용을 종합적으로 판단하여 알고리즘 선택해야 한다.
 
 <br><br>
 
@@ -49,51 +48,53 @@ tags: []
   1. 검색 값을 발견하지 못하고 배열의 끝을 지나간 경우
   2. 검색할 값과 같은 요소를 발견한 경우
 
-```java
-    //선형 검색 while
-    static int seqSearchW(int[] arr, int n, int key){
-        while(true){
-            if(i == n)      return -1;
-            if(a[i]==key)   return i;
+  ```java
+      //선형 검색 while
+      static int seqSearchW(int[] arr, int n, int key){
+          while(true){
+              if(i == n)      return -1;
+              if(a[i]==key)   return i;
 
-            i++;
-        }
-    }
+              i++;
+          }
+      }
 
-    static int seqSearchF(int[] arr, int n, int key){
-        for(int i=0; i<n; i++){
-            if(a[i] == key) return i;
+      static int seqSearchF(int[] arr, int n, int key){
+          for(int i=0; i<n; i++){
+              if(a[i] == key) return i;
 
-            return -1;
-        }
-    }
-```
+              return -1;
+          }
+      }
+  ```
 
-- 보초법
+  <br>
 
-  - 선형 검색은 검색시 상기의 종료 조건 1, 2를 모두 판단하는데, 이 과정에서 소요되는 비용을 반으로 줄이는 방법.
+  - __보초법__
 
-  - 검색하고자 하는 요소값을 배열의 맨 마지막 요소로 넣는다. 이렇게 하면 종료조건 1을 무시하고 2만 판단하면 됨.
+    - 선형 검색은 검색시 상기의 종료 조건 1, 2를 모두 판단하는데, 이 과정에서 소요되는 비용을 반으로 줄이는 방법.
 
-```java
-static int seqSearchSen(int[] arr, int n, int key){
-    int i=0;
+    - 검색하고자 하는 요소값을 배열의 맨 마지막 요소로 넣는다. 이렇게 하면 종료조건 1을 무시하고 2만 판단하면 됨.
 
-    a[n] = key;
-    while(true){
-        if(a[i] == key) break;
-        i++;
-    }
+      ```java
+      static int seqSearchSen(int[] arr, int n, int key){
+          int i=0;
 
-    return i == n ? -1 : i;
-}
-```
-***TODO***
-- 판단 횟수 : 배열의 요솟수가 n개라면 평균 n/2회. 원하는 값이 배열에 존재하지 않는 경우 조건 1은 n+1, 2는 n회
+          a[n] = key;
+          while(true){
+              if(a[i] == key) break;
+              i++;
+          }
+
+          return i == n ? -1 : i;
+      }
+      ```
+    ***TODO***
+- 판단 횟수 : 배열의 요솟수가 n개라면 <span style="color:#2D3748; background-color:#fff5b1">평균 n/2회</span>. 원하는 값이 배열에 존재하지 않는 경우 조건 1은 n+1, 2는 n회
 
 ### 03-3 이진 검색(binary search)
 
-- 데이터가 키 값으로 이미 정렬되어 있어야 한다. 오름차순 혹은 내리마순으로 정렬된 배열에서 검색하는 알고리즘.
+- 데이터가 키 값으로 이미 정렬되어 있어야 한다. 오름차순 혹은 내림차순으로 정렬된 배열에서 검색하는 알고리즘.
   
 - linear search보다 검색이 좀 더 빠르다.
   
@@ -119,6 +120,51 @@ static int seqSearchSen(int[] arr, int n, int key){
   - 평균값 : log n
   - 검색 실패시 log(n+1)회, 성공시 log n-1 회.
 
+  ```java
+  static int binarySearch(int[] arr, int n, int key){
+    int l = 0;
+    int r = n-1;
+
+    do{
+      int c = (l + r)/2;
+      if(arr[c] == key) return c
+      else if(arr[c] < key) l = c + 1;
+      else r = c - 1;
+    }while(l <= r);
+    
+    return -1;
+  }
+  ```
+
+ - 복잡도
+   - 알고리즘의 성능을 객관적으로 평가하는 기준으로서 
+  <br>__시간 복잡도__(실행에 필요한 시간)와
+  <br>__공간 복잡도__(기억 영역과 파일 공간이 얼마나 필요한가) 두 가지 요소 지님.
+
+   - 시간 복잡도
+     - 단순히 값을 반환, 대입하는 일회성 실행의 경우에는 `O(1)`로 표기
+      
+     - 실행 횟수가 비례하여 증가하는 경우에는 복잡도를 `O(n)`으로 표기.
+  
+     - O(f(n))과 O(g(n))의 복잡도 계산 방법
+       - `O(f(n)) + O(g(n)) = O(max(f(n), g(n)))`
+         > max(a, b)는 a와 b가운데 큰 쪽을 나타내는 메서드.
+
+       - for문을 이용한 선형 검색 코드를 기준으로 시간 복잡도를 나타내보면,
+         - int i를 선언하고 할당하는 부분은 한 번만 수행되므로 __O(1)__
+         - 대소 비교 부분의 평균 실행 횟수는 __n/2__
+         - 증가 연산자도 __n/2__
+         - a[i] == key 부분도 __n/2__
+         - i 리턴은 한 번만 수행되므로 __O(1)__
+         - 검색 실패시 -1 리턴은 한 번만 수행되므로 __O(1)__
+         
+         - 컴퓨터에게 n/2나 n이나 차이 없으므로 
+       
+         - O(1) + O(n) + O(n) + O(1) + O(n) + O(1) 
+         <br> = O(max(1, n, n, 1, n, 1))
+         <br> = O(n)
+
+    
 <br>
 <hr>
 <br>
