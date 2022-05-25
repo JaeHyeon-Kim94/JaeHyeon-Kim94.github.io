@@ -136,7 +136,7 @@ tags: []
   }
   ```
 
- - 복잡도
+ - **복잡도**
    - 알고리즘의 성능을 객관적으로 평가하는 기준으로서 
   <br>__시간 복잡도__(실행에 필요한 시간)와
   <br>__공간 복잡도__(기억 영역과 파일 공간이 얼마나 필요한가) 두 가지 요소 지님.
@@ -163,9 +163,48 @@ tags: []
          - O(1) + O(n) + O(n) + O(1) + O(n) + O(1) 
          <br> = O(max(1, n, n, 1, n, 1))
          <br> = O(n)
+  <br>
+  - __Arrays.binartSearch에 의한 이진 검색__
+  
+    - java.util.Array 클래스의 binarySearch 메서드는 오름차순으로 정렬된 배열 a를 가정하고, 키 값이 key인 요소를 이진검색 함. 자료형에 따라 오버로딩 되어있음.
+  
+      - 타입 : byte[], char[], double[], float[], int[], long[], short[], Object[], 제네릭
+      - 검색 성공시 key와 일치하는 요소의 인덱스를 리턴하는데, 여러개일 경우 무작위 인덱스 반환.
+      - 검색 실패시 삽입 포인트(key보다 큰 요소 중 첫 번째 요소의 인덱스)를 x라고 했을 때, -x-1 반환.
+  
+    - 객체의 배열에서 검색
+      - `static int binarySearch(Object[] a, Object key)`
+        - 자연 정렬이라는 방법으로 요소의 대소 관계를 판단. 정수 배열, 문자열 배열에서 검색시 적절.
+          - 자연 정렬과 문자열 정렬<br> 문자열 정렬은 동일한 위치에 있는 문자의 대소 비교를 통해 정렬한다.
+  
+          문자열 정렬 | 자연 정렬
+          --- | ---
+          텍스트1.txt | 텍스트1.txt
+          텍스트10.txt | 텍스트2.txt
+          텍스트100txt | 텍스트10.txt
+          텍스트2.txt | 텍스트21.txt
+          텍스트21.txt | 텍스트100.txt
 
+      - `static <T> int binarySearch(T[] a, T key, Comparator<? super T> c)`
+        - 자연 순서가 아닌 순서로 줄지어 있는 배열에서 검색하거나 자연 순서를 논리적으로 갖지 않는 클래스 배열에서 검색할 때 적절.
+        - Comparator : 클래스 T(또는 클래스 T의 슈퍼 클래스)로 생성한 두 객체의 대소 관계를 판단하기 위한 인터페이스. compare 메서드를 구현해 사용한다. 
+        ```java
+          public foo implements Comparator<T>{
+            int compare(T o1, T o2){
+              if(o1 > o2) return 양수;
+              if(o1 < o2) return 음수;
+              if(o1 == o2) return 0;
+            }
+
+            boolean equals(Object obj){
+              //...
+            }
+          }
+        ```
     
 <br>
 <hr>
 <br>
 
+## Reference
+- Do it! 자료구조와 함께 배우는 알고리즘 입문 자바 편
