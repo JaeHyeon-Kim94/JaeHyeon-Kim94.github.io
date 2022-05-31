@@ -206,5 +206,134 @@ tags: []
 <hr>
 <br>
 
+
+## Ch04. 스택과 큐
+
+
+### 1. 스택
+
+ - LIFO(Last In First Out)
+ - 스택에 데이터를 넣는 push와 데이터를 꺼내는 pop
+ - push와 pop을 하는 위치를 꼭대기(top)이라고 하고, 스택의 가장 아랫 부분은 바닥(bottom)이라고 함.
+
+ - 자바에서는 메서드의 호출과 실행시 스택을 사용함. 다음은 메서드 호출 및 실행과정.
+<br>
+
+  ```java
+    void x(){}
+    void y(){}
+    void z(){
+      x();
+      y();
+    }
+
+    void main(){
+      z();
+    }
+  ```
+  
+  > 1. push : main
+  > 2. push : z
+  > 3. push : x
+  > 4. pop : x
+  > 5. push : y
+  > 6. pop : y
+  > 7. pop : z
+  > 8. pop : main
+
+  - 스택 만들기
+
+  ```java
+    class MyStack<E>{
+        private int max;    //스택 용량
+        private int ptr;    //스택 포인터
+        private E[] stk;  //스택 본체
+
+        public MyStack(int capacity) {
+            ptr = 0;
+            max = capacity;
+            try{
+                stk = (E[])new Object[max];
+            }catch (OutOfMemoryError e){
+                max = 0;
+            }
+        }
+        //push 메서드
+        public int push(int x){
+            if(ptr >= max) throw new OverflowIntStackException();
+            return stk[ptr++] = x;
+        }
+        //pop 메서드
+        public int pop(){
+            if(ptr <= 0) throw new EmptyIntStackException();
+            return stk[--ptr];
+        }
+        //peek 메서드
+        public int peek(){
+            if(ptr <=0 ) throw new EmptyIntStackException();
+            return stk[ptr - 1];
+        }
+        //indexOf 메서드 (top to bottom 선형 검색 수행)
+        public int indexOf(E x){
+            for(int i=0; i<ptr; i++){
+                if(stk[i].equals(x)) return i;
+            }
+            return -1;
+        }
+        //clear 메서드
+        //스택의 모든 작업들은 스택 포인터(ptr)을 이용하여 이루어지기 때문에,
+        //스택의 요솟값을 변경할 필요가 없다.
+        public void clear(){ ptr = 0; }
+        //capacity 메서드
+        public int capacity(){ return max; }
+        //size 메서드
+        public int size(){ return ptr-1; }
+        //IsEmpty 메서드
+        public boolean IsEmpty(){ return ptr <= 0; }
+        //IsFull 메서드
+        public boolean IsFull(){ return ptr >= max; }
+        //dump 메서드 (스택의 모든 데이터 표시)
+        public void dump(){
+            if(ptr <= 0) System.out.println("스택이 비어있음.");
+            else{
+                for(int i=0; i<ptr; i++){
+                    System.out.println(stk[i] + " ");
+                }
+                System.out.println();
+            }
+        }
+
+
+    }
+
+    class EmptyIntStackException extends RuntimeException{
+        public EmptyIntStackException() {
+        }
+    }
+
+    class OverflowIntStackException extends RuntimeException{
+        public OverflowIntStackException() {
+        }
+    }
+  ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<hr>
+<br>
+
 ## Reference
 - Do it! 자료구조와 함께 배우는 알고리즘 입문 자바 편
