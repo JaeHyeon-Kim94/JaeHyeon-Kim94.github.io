@@ -138,11 +138,100 @@ tags : [spring, springmvc]
     xml 설정의 경우에는 root context만 사용하고 contextConfigLocation을 비워두도록 한다.
 
     <br>
-    __//TODO..정리필요__
+    //TODO..정리필요
     <br>
     1.1.2 Special Bean Types
     <br>[link](https://docs.spring.io/spring-framework/docs/5.3.19/reference/html/web.html#mvc-servlet-special-bean-types) 
     
+    1.1.3 Web MVC Config
+    <br>애플리케이션은 상기한 Special Bean Types에 있는, 요청을 처리하는데 있어서 필요한 구조적 Bean들을 선언할 수 있다. `DispatcherServlet`은 `WebApplicationContext`에서 각각의 special bean을 확인한다. 만약 일치하는 bean type이 없다면, `DispatcherServlet.properties`에 있는 default types로 돌아온다.
+
+    대부분의 경우, MVC Config는 최고의 시작점이다. Java 혹은 XML에 필요한 bean들을 선언하고, 상위 수준의 설정 callback API을 커스터마이즈 할 수 있게 한다.
+
+    > 스프링부트에서는 Java bean 설정을 사용하며 추가적인 여러 편의성 옵션들을 제공한다.
+
+    1.1.4 Servlet Config
+    Servlet3.0 이상의 환경에서, 서블릿 컨테이너를 web.xml 대신 프로그래밍적으로(자바 빈을 말하는듯) 구성할지, web.xml과 같이 할지를 선택할 수 있음. 다음은 DispatcherServlet을 등록하는 예제임.
+
+    ```java
+    import org.springframework.web.WebApplicationInitializer;
+
+    public class MyWebApplicationInitializer implements WebApplicationInitializer{
+        @Override
+        public void onStartup(ServletContext container){
+            XmlWebApplicationContext context = new XmlWebApplicationContext();
+            context.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
+
+            ServletRegistration.Dynamic registration 
+                    = container.addServlet("dispatcher", new registration.setLoadOnStartup(1));
+            registration.addMapping("/");
+        }
+    }
+    ```
+    `WebApplicationInitializer`는 Spring MVC에서 지원하는 인터페이스로서, 당신의 구현체들이 탐지되고 서블릿 컨테이너의 초기화에 자동적으로 사용된다는 것을 보증합니다.
+    `WebApplicationInitializer`의 디폴트 구현체인 `AbstractDispatcherServletInitializer`는 서블릿 매핑과 디스패쳐 서블릿의 위치를 특정하는 메서드를 오버라이딩 함으로써 디스패쳐 서블릿을 좀 더 손쉽게 등록할 수 있도록 해줍니다.
+
+    다음은 추천하는 자바 빈 기반의 설정 방식의 예 입니다.
+    ```java
+    public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
+            @Override
+        protected Class<?>[] getRootConfigClasses() {
+            return null;
+        }
+
+        @Override
+        protected Class<?>[] getServletConfigClasses() {
+            return new Class<?>[] { MyWebConfig.class };
+        }
+
+        @Override
+        protected String[] getServletMappings() {
+            return new String[] { "/" };
+        }
+    }
+    ```
+    만약 당신이 XML 기반의 스프링 설정을 사용하고 있다면, 다음처럼 `AbstractDispatcherServletInitializer`를 직접적으로 상속받으세요.
+
+    ```java
+    public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
+
+        @Override
+        protected WebApplicationContext createRootApplicationContext() {
+            return null;
+        }
+
+        @Override
+        protected WebApplicationContext createServletApplicationContext() {
+            XmlWebApplicationContext cxt = new XmlWebApplicationContext();
+            cxt.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
+            return cxt;
+        }
+
+        @Override
+        protected String[] getServletMappings() {
+            return new String[] { "/" };
+        }
+    }
+    ```
+
+    또한 `AbstractDispatcherServletInitializer`는 `Filter` 인스턴스들을 DispatcherServlet에 자동적으로 매핑될 수 있도록 편리한 방법을 제공하는데, 다음이 그 예시입니다.
+    ```java
+    public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
+
+        // ...
+
+        @Override
+        protected Filter[] getServletFilters() {
+            return new Filter[] {
+                new HiddenHttpMethodFilter(), new CharacterEncodingFilter() };
+        }
+    }
+    ```
+    각각의 필터는 그것의 구체적인 타입을 기반으로 한 이름으로 등록되고, 자동적으로 `DispatcherServlet`에 매핑됩니다.
+
+    `AbstractDispaterServletInitializer`의 protected method `isAsyncSupported`는 비동기적인 지원을 가능하게 하는 단일 공간(?)을 `DispatcherServlet`에게 제공하며, 모든 필터들이 매핑됩니다. zero config는 true.
+
+    마지막으로, `DispatcherServlet`을 커스터마이즈 할 필요가 있다면 createDispatcherServlet 메서드를 오버라이드 하세요.
 
 * * *
 # Reference
