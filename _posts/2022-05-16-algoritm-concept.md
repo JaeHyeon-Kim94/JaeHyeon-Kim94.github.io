@@ -259,18 +259,18 @@ tags: []
             }
         }
         //push 메서드
-        public int push(int x){
-            if(ptr >= max) throw new OverflowIntStackException();
+        public E push(int x){
+            if(ptr >= max) throw new OverflowMyStackException();
             return stk[ptr++] = x;
         }
         //pop 메서드
         public int pop(){
-            if(ptr <= 0) throw new EmptyIntStackException();
+            if(ptr <= 0) throw new EmptyMyStackException();
             return stk[--ptr];
         }
         //peek 메서드
-        public int peek(){
-            if(ptr <=0 ) throw new EmptyIntStackException();
+        public E peek(){
+            if(ptr <=0 ) throw new EmptyMyStackException();
             return stk[ptr - 1];
         }
         //indexOf 메서드 (top to bottom 선형 검색 수행)
@@ -306,19 +306,130 @@ tags: []
 
     }
 
-    class EmptyIntStackException extends RuntimeException{
-        public EmptyIntStackException() {
+    class EmptyMyStackException extends RuntimeException{
+        public EmptyMyStackException() {
         }
     }
 
-    class OverflowIntStackException extends RuntimeException{
-        public OverflowIntStackException() {
+    class OverflowMyStackException extends RuntimeException{
+        public OverflowMyStackException() {
         }
     }
   ```
 
 
+### 2. 큐
 
+- FIFO(First In First Out)
+- 큐에 데이터를 넣는 인큐(enqueue), 데이터를 꺼내는 디큐(dequeue), 데이터를 꺼내는 쪽인 프런트(front), 데이터를 넣는 쪽인 리어(rear)
+- 인큐의 경우 복잡도는 O(1), 디큐의 경우 복잡도는 O(n). 데이터를 꺼내고 다음 두 번째 요소부터 이후의 요소를 모두 앞으로 옮겨야 하기 때문.
+- 링 버퍼(배열 요소를 앞으로 옮기지 않도록 하는 큐) 이용시에는 디큐시에도 복잡도 O(1)
+
+- 배열을 이용해 큐 구현
+
+```java
+//해당 예제는 dequeue시 앞으로 옮기는 작업 없도록 구현.(링버퍼)
+  public class MyQueue<E>{
+    private int max;    //큐의 용량
+    private int front;  //맨 앞의 커서
+    private int rear;   //맨 뒤의 커서
+    private int num;    //현재의 데이터 수
+    private E[] que;    //큐의 본체
+
+    class EmptyMyQueueException extends RuntimeException{
+      public EmptyMyQueueException(){}
+    }
+
+    class OverflowMyQueueException extends RuntimeException{
+      public OverflowMyQueueException(){}
+    }
+
+    public MyQueue(int capacity){
+      num = front = rear = 0;
+      max = capacity;
+
+      try{
+        que = (E[])new Object[max];
+      }catch(OutofMemoryError e){
+        max = 0;
+      }
+    }
+
+    public E enqueue(E e){
+      if(num >= max)  throw new OverflowMyQueueException();
+      que[rear++] = e;
+      num++;
+      if(rear == max) rear = 0;
+      return e;
+    }
+
+    public E enqueue(){
+      if(num<=0) throw new EmptyMyQueueException();
+      E e = que[front++];
+      num--;
+      if(front == max) front = 0;
+      return e;
+    }
+
+    //큐에서 데이터를 피크
+    public E peek(){
+      if(num<=0) throw new EmptyMyQueueException();
+      return que[front];
+    }
+
+    //indexOf
+    public int indexOf(E e){
+      for(int i=0; i<num; i++){
+        int idx = (i + front) % max;
+        if(que[idx].equals(e)) return idx;  //검색 성공
+      }
+      return -1;  //검색 실패
+    }
+
+    //clear
+    public void clear(){
+      num = front = rear = 0;
+    }
+
+    //capacity
+    public int capacity(){
+      return max;
+    }
+
+    //size
+    public int size(){
+      return num;
+    }
+
+    //isEmpty
+    public boolean isEmpty(){
+      return num<=0;
+    }
+
+    //isFull
+    public boolean isFull(){
+      return num >= max;
+    }
+
+    //dump
+    public void dump(){
+      if(num<=0)  System.out.println("큐가 비었습니다.");
+      else{
+        for(int i=0; i<num; i++)
+          System.out.print(que[(i+front)%max] + " ");
+        System.out.println();  
+      }
+    }
+    
+    //search
+    public int search(E e){
+      for(int i=0; i<num; i++){
+        if(que[(i + front) % max].equals(e)) return i+1;
+      }
+      return 0;
+    }
+  }
+```
 
 
 
