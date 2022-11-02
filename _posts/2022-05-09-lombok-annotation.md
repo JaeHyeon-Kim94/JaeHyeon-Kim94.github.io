@@ -1,6 +1,7 @@
 ---
 categories: [Spring, annotation]
 tags: [annotation, lombok]
+published : false
 ---
 
 ## Annotations

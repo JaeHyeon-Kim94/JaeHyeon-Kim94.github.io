@@ -2,6 +2,7 @@
 categories: [project]
 title: [플레이-리스트-동기화-심플(Sync My PlayList)]
 tag: [project]
+published : false
 ---
 
 # 플레이 리스트 동기화 프로젝트

@@ -1,6 +1,7 @@
 ---
 categories: [Spring, tmp]
 tags: [SpringBootServletInitializer]
+published : false
 ---
 
 war 패키징 방식으로 spring boot 프로젝트를 initialize 하게 되면
