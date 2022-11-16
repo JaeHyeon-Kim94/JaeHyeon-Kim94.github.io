@@ -4,6 +4,8 @@ categories : [jpa]
 tags: [jpa, hibernate]
 ---
 
+>[자바 ORM 표준 JPA 프로그래밍](http://www.yes24.com/Product/Goods/19040233)
+
 # 매핑 어노테이션
 
 1. 객체(Entity)와 테이블(Table) 매핑
