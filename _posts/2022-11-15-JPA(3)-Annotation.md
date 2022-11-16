@@ -147,8 +147,8 @@ Annotation | attribute  | Description | DefaultValue
 Annotation | attribute  | Description | DefaultValue 
 --- | --- | --- | ---
 @JoinColumn | | 외래 키를 매핑할 때 사용. 생략 가능. | 
-|name  | 외래 키 이름  | 필드명 + "_" 참조하는 테이블의 <br>기본 키 컬럼 명
-|referencedColumnName  | 외래 키가 참조하는 <br>대상 테이블에서의 컬럼명 | 참조하는 테이블의 <br>기본 키 컬럼명  
+|name  | 외래 키 **컬럼명**  | 필드명 + "_" 참조하는 테이블의 <br>기본 키 컬럼 명
+|referencedColumnName  | 외래 키가 참조하는 <br>**대상 테이블에서의 컬럼명** | 참조하는 테이블의 <br>기본 키 컬럼명  
 |foreignKey(DDL) | 외래 키 제약조건을 직접 지정할 수 있음. | 
 |unique<br>nullable<br>insertable<br>updatable<br>columnDefinition<br>table | @Column의 속성과 같음 | 
 
@@ -156,7 +156,7 @@ Annotation | attribute  | Description | DefaultValue
 - 생략하게 되면 외래 키를 찾을 때 기본 전략 사용.
   - 기본 전략 : 필드명+_+참조하는 테이블의 컬럼명
 
-- name과 referencedColumnName의 차이를 설명한 글 : [name vs referencedColumnName](https://stackoverflow.com/questions/53287631/difference-between-name-and-referencedcolumnname-in-joincolumn-annotation)
+- name과 referencedColumnName의 차이를 설명한 글 : [name vs referencedColumnName](https://stackoverflow.com/questions/11244569/what-is-referencedcolumnname-used-for-in-jpa)
 
 
 ## **@SequenceGenerator**
