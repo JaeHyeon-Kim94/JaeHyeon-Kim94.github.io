@@ -1,5 +1,5 @@
 ---
-title : JPA(3) - 매핑 어노테이션
+title : JPA(03) - 매핑 어노테이션
 categories : [jpa]
 tags: [jpa, hibernate]
 ---
