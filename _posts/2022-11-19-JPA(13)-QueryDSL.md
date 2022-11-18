@@ -3,7 +3,7 @@ title : JPA(13)-QueryDSL
 categories : [jpa]
 tags: [jpa, hibernate]
 ---
-
+- 세부 내용 누락되어있음.
 
 # QueryDSL
 
@@ -146,3 +146,5 @@ main(){
  - 메서드 위임
     static 메서드를 만들고 @QueryDelegate(적용할엔티티)
     static 메서드의 파라미터 : (대상 엔티티의 쿼리타입, 필요한 파라미터 ...)
+
+ 
