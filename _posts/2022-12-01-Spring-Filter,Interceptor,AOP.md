@@ -60,10 +60,17 @@ afterCompletion 메서드의 경우 view 관련 작업 전에 실행되는 postH
 
 객체지향적인 프로그래밍으로는 줄일 수 없는 중복을 줄이기 위해 사용할 수 있다. JoinPoint와 Pointcut(Before, After, Around)를 이용해 메서드를 세밀하게 조정할 수 있다.
 
-인자로 ProceedingJoinPoint를 받아 처리하는데, 리플렉션을 통해 공통적인 부분을 조정한다. Request객체를 RequestContextHolder에서 받아 처리할 수 있지만, 성격상 컨트롤러 호출 과정에서 적용해야 하는 부가 기능을 적용하기는 상대적으로 적절하지 않아 보이며 메서드 자체의 기능과 관련된 작업에 사용하기 좋을 것 같다.
+인자로 ProceedingJoinPoint를 받아 처리하는데, 리플렉션을 통해 공통적인 부분을 조정한다. Request객체를 RequestContextHolder에서 받아 처리할 수 있지만, 성격상 컨트롤러 호출 과정에서 적용해야 하는 부가 기능을 적용하기는 상대적으로 적절하지 않아 보이며 메서드 자체의 기능과 관련된 작업에 사용하기 좋을 것 같다.<br>
 
 
-
+ + 어노테이션
+ - @Around, @Before, @AfterReturning, @After ,@AfterThrowing
+   - 동작
+     - AfterReturing : 비즈니스 메서드가 성공적으로 결과를 return했을시 동작.
+     - After : 성공 실패와 상관 없이 동작.
+     - Around : 프록시 객체를 통해 비즈니스 메서드 실행. 다른 것과 달리 ProceedingJoinPoint를 인자로 받음.
+   - 실행 순서 : Around -> Before -> AfterReturing -> After -> Around
+ - 
 
 
 
