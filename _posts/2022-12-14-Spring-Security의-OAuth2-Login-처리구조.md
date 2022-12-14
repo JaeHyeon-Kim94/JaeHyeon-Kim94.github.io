@@ -10,7 +10,7 @@ title: Spring Security의 OAuth2 Login 처리 구조
 [![](../../assets/img/OAuth2-Authorization.png)](https://hudi.blog/oauth-2.0/)
 
 
-일단은 해당 이미지에서 1 ~ 3에 해당하는 프로세스에 대해 분석해 보겠습니다.
+이번 포스트는 Spring Security 내부 동작과정을 살펴보고 이해하고자 합니다. 위 이미지에서 1~8의 프로세스에 해당합니다.
 
 
 ### 1. 로그인 요청 from Resource Owner to Client
@@ -35,6 +35,7 @@ Spring Security를 통해 OAuth2 로그인을 구현하고자 하는 경우 uri�
 
 컴포넌트 스캔을 통해 InMemoryClientRegistrationRepository이 빈으로 등록되고, 로그인 요청시마다 provider에 대한 정보를 가져와 사용하게 됩니다.
 
+이 덕분에 우리가 직접 쿼리 스트링을 구성하지 않아도 href=/oauth2/authorization/{registeration}만으로 Resource Server에 적절한 요청을 보낼 수 있게 됩니다.
 
 
 ![](../../assets/img/DefaultSecurityFilterChain_OAuth2AuthorizationRequestRedirectFilter-doFilterInternal.PNG)
@@ -44,6 +45,7 @@ Spring Security를 통해 OAuth2 로그인을 구현하고자 하는 경우 uri�
 
 ### 3 ~ 6 Resource Owner의 로그인과 Authrization Code
 
+Resource Owner는 네이버, 구글 등 Provider가 만들어놓은 로그인 페이지로 이동하게 됩니다. 그 후 
 Resource Owner가 자신의 id와 password를 통해 로그인을 하게 되면 우리 서버(Client)측에서는 Authorization Code를 발급받게 됩니다. 이 코드는 Access Token를 얻기 위해 사용하는 일회성 코드이며, 수명이 매우 짧습니다.
 
 
