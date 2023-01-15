@@ -11,7 +11,7 @@ title: Spring Security(2) - SpringBoot 자동 설정에 의한 초기화 과정
 ## 서블릿 컨테이너와 스프링 Bean
 
 필터 기반의 Spring Security가 Servlet 기반의 어플리케이션으로서 동작하기 위해선 서블릿 컨테이너에서 스프링 빈으로 등록된 클래스들을 알아야 한다.<br>
-하지만 서블릿 컨테이너는 스프링이 정의하는 빈은 인식하지 못하는데, `DelegatingFilterProxy` 를 통해 이러한 문제를 해결하였다.<br>
+하지만 서블릿 컨테이너는 스프링이 관리하는 빈을 인식하지 못하는데, `DelegatingFilterProxy` 를 통해 이러한 문제를 해결하였다.<br>
 
 ![SecurityFilterChain](../../assets/img/securityfilterchain.png) 
 
