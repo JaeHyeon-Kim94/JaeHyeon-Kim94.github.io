@@ -34,6 +34,10 @@ username과 password를 이용하는 기본적인 인증 과정을 기준으로 
 
 인증 예외가 발생하면 AuthenticationEntryPoint에서 이를 처리한다.
 
+> 주의해야 할 점이 있다.<br>
+> 지금 말하는 인증 예외는 인증이 필요한 자원에 접근한 요청이 인증되지 않은 사용자의 요청일 경우를 말하며, 로그인 과정에서 비밀번호 불일치와 같은 예외의 경우에는 Handler에서 처리.
+> 전자의 경우에는 ExceptionTranslationFilter에서 EntryPoint의 commence 메서드를 호출하며, 후자의 경우에는 해당 인증과정을 처리하던 필터에서 failureHandler의 메서드를 호출하는 것에서 확인할 수 있다.
+
 ![](../../assets/img/AuthenticationEntryPoint.PNG)
 
 인증 방식에 따라 각각 다른 EntryPoint가 지정되는데, `ExceptionHandlingConfigurer`가 이 설정을 관장한다.
