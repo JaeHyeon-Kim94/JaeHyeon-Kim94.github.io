@@ -87,10 +87,9 @@ afterCompletion 메서드의 경우 view 관련 작업 전에 실행되는 postH
 
 인터셉터의 경우 request, response를 제공받긴 하지만 객체 자체는 변경이 불가능하고 객체 내부의 값만 변경할 수 있다. 따라서 컨트롤러로 넘겨주기 위한 정보를 가공하기에는 용이하다.
 
-스프링부트나 DelegatingFilterProxy를 이용하는 경우에도 이 부분은 크게 달라지지 않을 것이라고 생각한다.
+
 
 
 ## Reference
 
->정말 설명이 잘되어있다.<br>
 [[Spring] 필터(Filter) vs 인터셉터(Interceptor) 차이 및 용도 - (1)](https://mangkyu.tistory.com/173)

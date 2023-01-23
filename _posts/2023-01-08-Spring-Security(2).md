@@ -34,9 +34,9 @@ Spring Security 의존성만 추가하고 아무런 설정을 하지 않은 채 
 
 Custom 설정이 없다는 가정 하에 진행 과정을 설명하자면,<br>
 
-어플리케이션을 구동하게 되면 시큐리티 - MVC Integration 관련 설정과 앞서 설명한 DelegatingFilterProxy를 등록 하는 등의 초기화 과정이 수행횐다. 그 과정에서 `HttpSecurityConfiguration`이라는 Spring 제공 설정 클래스가 생성되는데, 여기서 기본적인 SecurityFilterChain을 담은 HttpSecurity를 Bean으로 등록한다. 이 HttpSecurity는 WebSecurityConfiguration에서 HttpBasic, FormLogin 두 인증 방식을 추가한다. 이렇게 기본적인 설정이 된 SecurityFilterChain 빈은 최종적으로 FilterChainProxy에 생성자에게 전달된다.
+어플리케이션을 구동하게 되면 시큐리티 - MVC Integration 관련 설정과 Csrf설정, 그리고 DelegatingFilterProxy를 등록 하는 등의 초기화 과정이 수행된다. 그 과정에서 `HttpSecurityConfiguration`이라는 Spring 제공 설정 클래스가 생성되는데, 여기서 기본적인 SecurityFilterChain을 담은 HttpSecurity를 Bean으로 등록한다. 이렇게 기본적인 설정이 된 HttpSecurity으로부터 SecurityFilterChain을 WebSecurityConfiguration에서 List형태로 주입받아 최종적으로 FilterChainProxy에 생성자에게 전달된다.
 
-SecurityFilterChain Bean을 등록하는 과정에서 각 Filter들을 생성하고 Configurer의 init, configure 메서드를 호출하며 초기화 작업이 이루어진다.(WebSecurityConfiguration의 springSecurityFilterChain 메서드와 AbstractConfiguredSecurityBuilder의 build 메서드 참고)
+SecurityFilterChain Bean을 등록하는 과정에서 각 Filter들을 생성하고 Configurer의 init, configure 메서드를 호출하며 초기화 작업이 이루어진다.(WebSecurityConfiguration의 springSecurityFilterChain 메서드와 AbstractConfiguredSecurityBuilder의 doBuild 메서드 참고)
 
 
 ### CustomSecurityConfigurer 등록
